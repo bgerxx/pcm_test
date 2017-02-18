@@ -91,6 +91,8 @@ static long pcm_cdev_ioctl(struct file *filp, unsigned int cmd, unsigned long ar
         	err = !access_ok(VERIFY_READ, (void *)arg, _IOC_SIZE(cmd));
     	if (err) 
         	return -EFAULT;
+	local_irq_disable();
+        hypercall(102);
 	switch(cmd) {
 		case TSC_RW:
 			test_tsc();
@@ -98,6 +100,8 @@ static long pcm_cdev_ioctl(struct file *filp, unsigned int cmd, unsigned long ar
 		default:
 			break;
 	}
+	hypercall(103);
+        local_irq_enable();
 	return err;
 }
 
