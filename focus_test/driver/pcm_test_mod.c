@@ -36,27 +36,6 @@ struct pcm_cdev {
 
 struct pcm_cdev * pcm_cdev_t;
 
-static int test_tsc(void)
-{
-	u64 t1, t2;
-        rdtscll(t1);
-	rdtscll(t2);
-	printk("rdtsc latency %u\n", (unsigned)(t2 - t1));
-
-	test_wrtsc(0);
-	test_wrtsc(100000000000ull);
-/*
-	if (check_cpuid_80000001_edx(CPUID_80000001_EDX_RDTSCP)) {
-        	test_rdtscp(0);
-        	test_rdtscp(10);
-        	test_rdtscp(0x100);
-	} else
-        	printk("rdtscp not supported\n");
-		return 1;
-*/
-	return 0;
-}
-
 static int pcm_cdev_open(struct inode *inode, struct file *filp)
 {
 	struct pcm_cdev *dev; 
@@ -94,8 +73,26 @@ static long pcm_cdev_ioctl(struct file *filp, unsigned int cmd, unsigned long ar
 	local_irq_disable();
         hypercall(102);
 	switch(cmd) {
-		case TSC_RW:
-			test_tsc();
+		case CPUID:
+			cpuid_test();
+			break;
+		case RDPMC:
+			rdpmc_test();
+			break;
+		case RDRAND:
+			rdrand_test();
+			break;
+		case RDSEED:
+			rdseed_test();
+			break;
+		case INVD:
+			invd_test();
+			break;
+		case RDTSC:
+			rdtsc_test();
+			break;
+		case RDTSCP:
+			rdtscp_test();
 			break;
 		default:
 			break;
