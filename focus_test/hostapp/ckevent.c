@@ -128,7 +128,25 @@ void ck_rdtsc(void)
         fread(event_t,sizeof(*event_t)+sizeof(*event_rdtsc),1,fd);
         event_rdtsc = (struct event_log_rdtsc *)(event_t->log_data);
 
-        printf("rdtsc value=%llx\n",event_rdtsc->tsc);
+        printf("rdtsc tsc=%llx\n",event_rdtsc->tsc);
+
+        fclose(fd);
+        free(event_t);
+}
+
+
+void ck_rdtscp(void)
+{
+        event_log_t *event_t;
+        struct event_log_rdtscp *event_rdtscp;
+        event_t = (event_log_t *)malloc(sizeof(*event_t)+sizeof(*event_rdtscp));
+        memset(event_t, 0, sizeof(*event_t)+sizeof(*event_rdtscp));
+        FILE *fd = fopen("/tmp/event.bin", "r");
+        fread(event_t,sizeof(*event_t)+sizeof(*event_rdtscp),1,fd);
+        event_rdtscp = (struct event_log_rdtscp *)(event_t->log_data);
+
+        printf("rdtscp tsc=%llx\n",event_rdtscp->tsc);
+        printf("rdtscp tsc_aux=%llx\n",event_rdtscp->tsc_aux);
 
         fclose(fd);
         free(event_t);
@@ -163,6 +181,9 @@ int main(int argc, char *argv[])
 	}
 	else if (strcmp(type,"rdtsc") == 0) {
 		ck_rdtsc();
+	}
+	else if (strcmp(type,"rdtscp") == 0) {
+		ck_rdtscp();
 	}
 	
         return 0;
