@@ -1,0 +1,1 @@
+KERNEL=="pcm_test",MODE=="0666",GROUP="tty"
