@@ -2,6 +2,8 @@
 #include <asm/msr.h>
 #include <asm/processor.h>
 
+#include "test_func.h"
+
 int check_cpuid_80000001_edx(unsigned int bit)
 {
 	u32 eax, ebx, ecx, edx;
@@ -36,5 +38,30 @@ void test_rdtscp(u64 aux)
 	native_write_msr_safe( MSR_TSC_AUX, aux, aux>>32);
 	rdtscpll(ecx, aux);
 	printk("Test RDTSCP eax=%d, aux=%lld", ecx, aux);
+}
+
+void test_tsc(void)
+{
+	u64 t1, t2;
+        rdtscll(t1);
+	rdtscll(t2);
+	printk("rdtsc latency %u\n", (unsigned)(t2 - t1));
+
+	test_wrtsc(0);
+	test_wrtsc(100000000000ull);
+/*
+	if (check_cpuid_80000001_edx(CPUID_80000001_EDX_RDTSCP)) {
+        	test_rdtscp(0);
+        	test_rdtscp(10);
+        	test_rdtscp(0x100);
+	} else
+        	printk("rdtscp not supported\n");
+		return 1;
+*/
+	test_rdtscp(0);
+	test_rdtscp(10);
+	test_rdtscp(0x100);
+
+//	return 0;
 }
 

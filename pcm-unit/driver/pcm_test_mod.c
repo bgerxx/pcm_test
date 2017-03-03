@@ -14,6 +14,8 @@
 #include "pcm_tc.h"
 #include "pcm_test_ioctl.h"
 
+#include "test_func.h" 
+
 #define KVM_HYPERCALL ".byte 0x0f,0x01,0xc1"
 
 static long hypercall(unsigned int nr)
@@ -36,30 +38,7 @@ struct pcm_cdev {
 
 struct pcm_cdev * pcm_cdev_t;
 
-static int test_tsc(void)
-{
-	u64 t1, t2;
-        rdtscll(t1);
-	rdtscll(t2);
-	printk("rdtsc latency %u\n", (unsigned)(t2 - t1));
 
-	test_wrtsc(0);
-	test_wrtsc(100000000000ull);
-/*
-	if (check_cpuid_80000001_edx(CPUID_80000001_EDX_RDTSCP)) {
-        	test_rdtscp(0);
-        	test_rdtscp(10);
-        	test_rdtscp(0x100);
-	} else
-        	printk("rdtscp not supported\n");
-		return 1;
-*/
-	test_rdtscp(0);
-	test_rdtscp(10);
-	test_rdtscp(0x100);
-
-	return 0;
-}
 
 static int pcm_cdev_open(struct inode *inode, struct file *filp)
 {
