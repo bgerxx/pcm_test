@@ -80,6 +80,9 @@ static long pcm_cdev_ioctl(struct file *filp, unsigned int cmd, unsigned long ar
 		case TSC_RW:
 			test_tsc();
 			break;
+        case SETJMP:
+            test_setjmp();
+            break;
 		default:
 			break;
 	}

@@ -4,10 +4,10 @@
 
 
 void test_tsc(void);			
-			
-			
-			
-			
+void test_setjmp(void);
+
+
+
 
 
 #endif
