@@ -83,6 +83,9 @@ static long pcm_cdev_ioctl(struct file *filp, unsigned int cmd, unsigned long ar
         case SETJMP:
             test_setjmp();
             break;
+        case MSR_RW:
+            test_msr();
+            break;
 		default:
 			break;
 	}
