@@ -1,6 +1,6 @@
 obj-m += pcm_test.o
-pcm_test-objs := pcm_test_mod.o tsc.o
+pcm_test-objs := pcm_test_mod.o tsc.o msr.o setjmp.o setjmp64.o #setjmp32.o
 all:
-	make -C /home/linux-cicada M=$(PWD) modules
+	make -C /root/cicada/linux-cicada M=$(PWD) modules
 clean:
-	make -C /home/linux-cicada M=$(PWD) clean
+	make -C /root/cicada/linux-cicada M=$(PWD) clean
