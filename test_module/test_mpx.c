@@ -59,8 +59,32 @@ void test_mpx_bndmov(void) {
     /* 66 0f 1b c2  bndmov %bnd0,%bnd2  */
 
     asm volatile(".byte 0x66,0x0f,0x1b,0xc2\n\t");
+    printk("bndmov executed\n");
 
 }
+
+void test_mpx_bndldx(void) {
+    char *ptr_addr = NULL;
+    char *ptr_val = NULL;
+    /* 0F 1A /r BNDLDX-Load         */
+    /*/ 0f 1a 04 11 bndldx (%rcx,%rdx,1),%bnd0  */
+    asm volatile(".byte 0x0f,0x1a,0x04,0x11\n\t"
+                : : "c" (ptr_addr), "d" (ptr_val)
+                :   "memory");
+    printk("bndldx executed\n");
+}
+
+void test_mpx_bndstx(void){
+    char *ptr_addr = NULL;
+    char *ptr_val = NULL;
+     /* 0F 1B /r BNDSTX-Store Extended Bounds Using Address Translation  */
+    /* 0f 1b 04 11  bndstx %bnd0,(%rcx,%rdx,1)              */
+    asm volatile(".byte 0x0f,0x1b,0x04,0x11\n\t"
+                : : "c" (ptr_addr), "d" (ptr_val)
+                :   "memory");
+    printk("bndstx executed\n");
+}
+
 
 
 int test_mpx_rdmsr(void) {

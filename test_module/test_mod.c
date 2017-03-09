@@ -132,6 +132,12 @@ static int __init init_test_mode(void)
             case 15:
                 test_mpx_bndmov();
                 break;
+            case 16:
+                test_mpx_bndldx();
+                break;
+            case 17:
+                test_mpx_bndstx();
+                break;
             case 18:
                 test_xsetbv();
                 break;

@@ -9,4 +9,6 @@ void test_mpx_bndcl(void);
 void test_mpx_bndcu(void);
 void test_mpx_bndcn(void);
 void test_mpx_bndmov(void);
+void test_mpx_bndldx(void);
+void test_mpx_bndstx(void);
 #endif
