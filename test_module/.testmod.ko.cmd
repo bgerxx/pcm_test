@@ -1,0 +1,1 @@
+cmd_/home/cpu_cap/test_module/testmod.ko := ld -r -m elf_x86_64 -T ./scripts/module-common.lds --build-id  -o /home/cpu_cap/test_module/testmod.ko /home/cpu_cap/test_module/testmod.o /home/cpu_cap/test_module/testmod.mod.o ;  true
