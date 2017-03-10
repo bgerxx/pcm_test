@@ -61,7 +61,6 @@ static void test_invd(void)
 
 static void test_getsec(void)
 {
-	//__write_cr4(__read_cr4() | X86_CR4_SMXE);
 	asm volatile("getsec":: "a"(0));
 	printk("getsec executed\n");
 }
@@ -77,6 +76,20 @@ static void test_monitor(void)
 {
 	__monitor((void *)&current_thread_info()->flags ,0 ,0);
 	printk("monitor executed\n");
+}
+
+void test_access_cr0(void)
+{
+    u32 cr0 = read_cr0();
+    write_cr0( cr0 | X86_CR0_CD);
+    printk("read write cr0 succeeded.\n");
+}
+
+void test_access_cr4(void)
+{
+    u32 cr4 = __read_cr4();
+    __write_cr4(cr4 | X86_CR4_OSXSAVE);
+    printk("read write cr4 succeeded.\n");
 }
 
 static int __init init_test_mode(void)
@@ -140,6 +153,12 @@ static int __init init_test_mode(void)
                 break;
             case 18:
                 test_xsetbv();
+                break;
+            case 19:
+                test_access_cr0();
+                break;
+            case 20:
+                test_access_cr4();
                 break;
 	     default:
 		printk("Invalid tc_no %d\n", tc_no);
