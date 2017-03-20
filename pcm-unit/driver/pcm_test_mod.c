@@ -10,7 +10,8 @@
 #include <linux/slab.h>
 #include <linux/device.h>
 #include <asm/processor.h>
-#include <asm/msr.h>
+//#include <asm/msr.h>
+//#include <asm/pvclock.h>
 #include "pcm_tc.h"
 #include "pcm_test_ioctl.h"
 
@@ -86,6 +87,8 @@ static long pcm_cdev_ioctl(struct file *filp, unsigned int cmd, unsigned long ar
         case MSR_RW:
             test_msr();
             break;
+        case KVMCLOCK_TEST:
+            test_kvm_clock();
 		default:
 			break;
 	}

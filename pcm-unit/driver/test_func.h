@@ -6,7 +6,7 @@
 void test_tsc(void);			
 void test_setjmp(void);
 void test_msr(void);
-
+void test_kvm_clock(void);
 
 
 
