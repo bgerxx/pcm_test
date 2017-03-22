@@ -125,9 +125,9 @@ static void test_syscall_lazy_load(void)
     unsigned long long p;
 /*    rdmsrl_safe(MSR_EFER, &p);
  *    */
-    wrmsrl_safe(MSR_EFER, rdmsrl_safe(MSR_EFER, &p) | EFER_SCE);
+    wrmsrl_safe(MSR_EFER, (ulong)(rdmsrl_safe(MSR_EFER, &p) | EFER_SCE));
     wrmsrl_safe(MSR_LSTAR, (ulong)syscall_target);
-    wrmsrl_safe(MSR_STAR, cs);
+    wrmsrl_safe(MSR_STAR, (ulong)cs);
     asm volatile("pushf; syscall; syscall_target: popf" : "=c"(tmp) : : "r11");
     write_ss(ss);
     // will crash horribly if broken
