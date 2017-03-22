@@ -33,11 +33,15 @@ void test_rdtscp(unsigned int aux)
 */
 void test_rdtscp(u64 aux)
 {
-	u32 ecx;
+    u32 ecx;
 
-	native_write_msr_safe( MSR_TSC_AUX, aux, aux>>32);
-	rdtscpll(ecx, aux);
-	printk("Test RDTSCP eax=%d, aux=%lld", ecx, aux);
+    /*
+       native_write_msr_safe( MSR_TSC_AUX, aux, aux>>32);
+       rdtscpll(ecx, aux);
+       */
+    wrmsrl_safe( MSR_TSC_AUX, aux);
+    native_read_tscp( &(ecx)); 
+    printk("Test RDTSCP eax=%d, aux=%lld", ecx, aux);
 }
 
 void test_tsc(void)
