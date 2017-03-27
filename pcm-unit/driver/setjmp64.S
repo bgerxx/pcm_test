@@ -25,3 +25,7 @@ longjmp:
 	mov (%rdi), %rsi
 	mov %rsi, (%rsp)
 	ret
+
+.global boot_idt
+boot_idt = 0
+

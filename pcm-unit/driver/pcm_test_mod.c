@@ -89,6 +89,8 @@ static long pcm_cdev_ioctl(struct file *filp, unsigned int cmd, unsigned long ar
             break;
         case KVMCLOCK_TEST:
             test_kvm_clock();
+        case IOAPIC_TEST:
+            test_ioapic();
 		default:
 			break;
 	}
