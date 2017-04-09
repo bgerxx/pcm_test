@@ -41,7 +41,7 @@ void test_rdtscp(u64 aux)
        */
     wrmsrl_safe( MSR_TSC_AUX, aux);
     native_read_tscp( &(ecx)); 
-    printk("Test RDTSCP eax=%d, aux=%lld", ecx, aux);
+    printk("Test RDTSCP eax=%d, aux=%lld\n", ecx, aux);
 }
 
 void test_tsc(void)
