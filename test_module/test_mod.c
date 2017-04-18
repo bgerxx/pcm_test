@@ -97,72 +97,53 @@ static int __init init_test_mode(void)
 	printk("tc_no is %d\n", tc_no);
 
 	switch (tc_no){
-	    case 1:
-		vmxon_region = (char *)kmalloc(0x1000, GFP_KERNEL);
-		vmxon_phy_region = __pa(vmxon_region);
-		test_vmxon(vmxon_phy_region);
-		break;
-	     case 2: 
-		test_vmxoff();
-	     case 3: /* PT */
-		test_pt_rdmsr();
-		test_pt_wrmsr();
-		break;
-	     case 4: /* rdpmc */
-		test_rdpmc();
-		break;
-	     case 5: /* test invd */
-		test_invd();
-		break;
-	     case 6:
-		test_getsec();
-		break;
-	     case 7:
-		test_monitor();
-	     case 8:
-		test_mwait();
-		break;
-	     case 9:
-		printk(KERN_ERR "test_mpx\n");
-		test_mpx_rdmsr();
-		test_mpx_wrmsr();
-		break;
-             case 10:
-                test_xsaves();
-                break;         
-             case 11:
-                test_mpx_bndmk();
-                break;
-            case 12:
-                test_mpx_bndcl();
-                break;
-            case 13:
-                test_mpx_bndcu();
-                break;    
-            case 14:
-                test_mpx_bndcn();
-                break;
-            case 15:
-                test_mpx_bndmov();
-                break;
-            case 16:
-                test_mpx_bndldx();
-                break;
-            case 17:
-                test_mpx_bndstx();
-                break;
-            case 18:
-                test_xsetbv();
-                break;
-            case 19:
-                test_access_cr0();
-                break;
-            case 20:
-                test_access_cr4();
-                break;
-	     default:
-		printk("Invalid tc_no %d\n", tc_no);
-		break;
+        case 1:
+		    vmxon_region = (char *)kmalloc(0x1000, GFP_KERNEL);
+		    vmxon_phy_region = __pa(vmxon_region);
+		    test_vmxon(vmxon_phy_region);
+		    break;
+	    case 2: 
+		    test_vmxoff();
+            break;
+	    case 3: /* PT */
+		    test_pt_rdmsr();
+		    test_pt_wrmsr();
+		    break;
+	    case 4: /* rdpmc */
+		    test_rdpmc();
+		    break;
+	    case 5: /* test invd */
+		    test_invd();
+		    break;
+	    case 6:
+		    test_getsec();
+		    break;
+	    case 7:
+		    test_monitor();
+            break;
+	    case 8:
+		    test_mwait();
+		    break;
+	    case 9:
+		    printk(KERN_ERR "test_mpx\n");
+		    test_mpx_rdmsr();
+		    test_mpx_wrmsr();
+		    break;
+        case 10:
+            test_xsaves();
+            break;         
+        case 11:
+            test_xsetbv();
+            break;
+        case 12:
+            test_access_cr0();
+            break;
+        case 13:
+            test_access_cr4();
+            break;
+	    default:
+		    printk("Invalid tc_no %d\n", tc_no);
+		    break;
 
 	}
 	return 0;
