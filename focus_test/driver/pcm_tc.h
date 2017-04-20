@@ -23,6 +23,13 @@ void rdtsc_test(void);
 /*TEST RDTSCP*/
 void rdtscp_test(void);
 
+/*TEST PIO*/
+void pio_test(void);
 
+/*TEST MMIO*/
+void mmio_test(void);
+
+/*TEST ICMP*/
+void icmp_test(void);
 
 #endif

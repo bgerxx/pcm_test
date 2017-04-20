@@ -54,6 +54,15 @@ int main(int argc, char *argv[])
         else if (strcmp(type,"rdtscp") == 0) {
                 ins_ioc = RDTSCP;
         }
+        else if (strcmp(type,"pio") == 0) {
+                ins_ioc = PIO;
+        }
+        else if (strcmp(type,"mmio") == 0) {
+                ins_ioc = MMIO;
+        }
+        else if (strcmp(type,"icmp") == 0) {
+                ins_ioc = icmp;
+        }
 	
 	err = ioctl(fd, ins_ioc);
 	if (err != 0){

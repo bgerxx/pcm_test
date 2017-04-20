@@ -56,6 +56,21 @@ struct event_log_msr_read {
         uint32_t out_edx;
 };
 
+struct event_log_pio_ins {
+        uint32_t rep_num;
+	uint32_t in_data[0];
+};
+
+struct event_log_mmio_ins {
+        uint32_t rep_num;
+        uint64_t in_data[0];
+};
+
+struct event_log_mmio_outs {
+        uint32_t rep_num;
+        uint64_t out_data[0];
+};
+
 #pragma pack(pop)
 
 #define CMD_LINE_ARGS "ht:"
@@ -152,6 +167,27 @@ void ck_rdtscp(void)
         free(event_t);
 }
 
+void ck_pio(void)
+{
+}
+
+void ck_mmio(void)
+{
+        event_log_t *event_t;
+        struct event_log_mmio_ins *event_mmio_ins;
+        event_t = (event_log_t *)malloc(sizeof(*event_t)+sizeof(*event_mmio_ins));
+        memset(event_t, 0, sizeof(*event_t)+sizeof(*event_mmio_ins));
+        FILE *fd = fopen("/tmp/event.bin", "r");
+        fread(event_t,sizeof(*event_t)+sizeof(*event_mmio_ins),1,fd);
+        event_mmio_ins = (struct event_log_mmio_ins *)(event_t->log_data);
+
+        printf("mmio_ins rep=%d\n",event_mmio_ins->rep_num);
+
+        fclose(fd);
+        free(event_t);
+
+}
+
 
 int main(int argc, char *argv[])
 {
@@ -184,6 +220,12 @@ int main(int argc, char *argv[])
 	}
 	else if (strcmp(type,"rdtscp") == 0) {
 		ck_rdtscp();
+	}
+	else if (strcmp(type,"pio") == 0) {
+		ck_pio();
+	}
+	else if (strcmp(type,"mmio") == 0) {
+		ck_mmio();
 	}
 	
         return 0;

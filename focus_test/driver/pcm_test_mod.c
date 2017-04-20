@@ -94,6 +94,15 @@ static long pcm_cdev_ioctl(struct file *filp, unsigned int cmd, unsigned long ar
 		case RDTSCP:
 			rdtscp_test();
 			break;
+		case PIO:
+			pio_test();
+			break;
+		case MMIO:
+			mmio_test();
+			break;
+		case ICMP:
+			icmp_test();
+			break;
 		default:
 			break;
 	}
