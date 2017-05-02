@@ -9,5 +9,6 @@ void test_msr(void);
 void test_kvm_clock(void);
 void test_ioapic(void);
 
+void test_tsc_adjust(void);
 
 #endif

@@ -76,7 +76,8 @@ static long pcm_cdev_ioctl(struct file *filp, unsigned int cmd, unsigned long ar
     	if (err) 
         	return -EFAULT;
 	local_irq_disable();
-        hypercall(102);
+    hypercall(102);
+
 	switch(cmd) {
 		case TSC_RW:
 			test_tsc();
@@ -91,12 +92,15 @@ static long pcm_cdev_ioctl(struct file *filp, unsigned int cmd, unsigned long ar
             test_kvm_clock();
         case IOAPIC_TEST:
             test_ioapic();
+        case TSC_ADJUST:
+            test_tsc_adjust();
 		default:
 			break;
 	}
-	hypercall(103);
-        local_irq_enable();
-	return err;
+    
+    hypercall(103);
+    local_irq_enable();
+    return err;
 }
 
 static const struct file_operations pcm_cdev_file_ops = {
