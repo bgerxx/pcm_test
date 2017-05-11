@@ -61,7 +61,7 @@ int main(int argc, char *argv[])
                 ins_ioc = MMIO;
         }
         else if (strcmp(type,"icmp") == 0) {
-                ins_ioc = icmp;
+                ins_ioc = ICMP;
         }
 	
 	err = ioctl(fd, ins_ioc);
